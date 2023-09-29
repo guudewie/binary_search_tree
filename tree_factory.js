@@ -1,18 +1,20 @@
 
 const Node = require("./Node_factory.js")
 
-const Tree = () => {
+const Tree = (array) => {
 
-    const sortArray = (array) => {
-        return array.sort((a, b) =>  a-b )
-    }
+    const root = buildTree(_sortAndRemoveDuplicates(array))
 
-    const removeDuplicates = (array) => {
-        return array.filter((item, index) => array.indexOf(item) === index)
+    const _sortAndRemoveDuplicates = (array) => {
+        let finalArray = array.sort((a, b) => a - b ) // sort array
+        finalArray = array.filter((item, index) => array.indexOf(item) === index) // remove duplicates
+
+        return finalArray
     }
 
     const buildTree = (array) => {
-    
+
+
 
 
         return //level-0 root node
