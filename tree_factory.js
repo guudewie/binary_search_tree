@@ -3,27 +3,8 @@ const Node = require("./Node_factory.js")
 
 const Tree = () => {
 
-    const _sortArray = (array) => {
-        if ( array.length < 2 ) return array
-
-        let half = Math.floor(array.length / 2);
-    
-        let leftSorted = mergeSort(array.slice(0, half));
-        let rightSorted = mergeSort(array.slice(half));
-    
-        let sortedArray = [];
-    
-    
-        while (leftSorted.length > 0 && leftSorted.length > 0) {
-            
-            arrayMin = leftSorted[0] > rightSorted[0] ? rightSorted : leftSorted;
-            
-            // add llowest first element to sorted array while removing from original array
-            sortedArray.push(arrayMin.shift())
-        }
-        
-        // add remainding numbers in either right or left array to sorted array
-        return sortedArray.concat(rightSorted, leftSorted)
+    const sortArray = (array) => {
+        return array.sort((a, b) =>  a-b )
     }
 
     const removeDuplicates = (array) => {
@@ -52,10 +33,11 @@ const Tree = () => {
 
 
       return {
-        removeDuplicates
+        removeDuplicates,
+        sortArray
       }
 }
 
 let firstTree = Tree()
 
-console.log(firstTree.removeDuplicates([1,1,2,2,3,3]))
+console.log(firstTree.sortArray(firstTree.removeDuplicates([9,8,8,7,6,6,5,5,4,3,2,2])))
