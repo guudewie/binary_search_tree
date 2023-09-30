@@ -1,9 +1,9 @@
-const Node = (data, left = null, right = null) => {
+const Node = (data, leftNode = null, rightNode = null) => {
 
     return {
         data : data,
-        left : left,
-        right : right
+        left : leftNode,
+        right : rightNode
     }
 }
 

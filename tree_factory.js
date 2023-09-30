@@ -3,7 +3,7 @@ const Node = require("./Node_factory.js")
 
 const Tree = (array) => {
 
-    const sortAndRemoveDuplicates = (array) => {
+    const _sortAndRemoveDuplicates = (array) => {
         let finalArray = array.sort((a, b) => a - b ) // sort array
         finalArray = array.filter((item, index) => array.indexOf(item) === index) // remove duplicates
 
@@ -25,6 +25,35 @@ const Tree = (array) => {
         return root
     }
 
+    const insert = (value) => {
+
+        let currentNode = root;
+
+        while (!(currentNode.left == null && currentNode.right == null)) { // while node is not a leaf go to appropriate next node
+            if (currentNode.data == value) throw new Error("duplicate value") // check for duplicates
+
+            if (currentNode.data < value && currentNode.right == null) {
+                currentNode.right = Node(value)
+                return
+            }
+
+            if (currentNode.data > value && currentNode.left == null) {
+                currentNode.left = Node(value)
+                return
+            }
+
+            currentNode.data > value ? currentNode = currentNode.left : currentNode = currentNode.right 
+        }
+        
+        currentNode.data > value ? currentNode.left = Node(value) : currentNode.right = Node(value)
+    }
+
+    const deleteValue = (value) => {
+
+    }
+
+
+
     const prettyPrint = (node, prefix = "", isLeft = true) => {
         if (node === null) {
           return;
@@ -38,16 +67,20 @@ const Tree = (array) => {
         }
       };
 
-      const root = buildTree(sortAndRemoveDuplicates(array))
+      const root = buildTree(_sortAndRemoveDuplicates(array))
 
       return {
-        sortAndRemoveDuplicates,
         root,
-        prettyPrint
+        prettyPrint,
+        insert,
+        deleteValue
       }
 }
 
-let firstTree = Tree([1,2,3,4,5,6,7,8,9])
+let firstTree = Tree([  1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324 ])
 
 console.log(firstTree.prettyPrint(firstTree.root))
-console.log(firstTree.root)
+firstTree.insert(7.5)
+firstTree.insert(4.5)
+firstTree.insert(7000)
+console.log(firstTree.prettyPrint(firstTree.root))
