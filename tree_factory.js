@@ -21,7 +21,7 @@ const Tree = (array) => {
         let root = Node(a[mid])
         root.left = buildTree(a.slice(start,  mid)) // end not included in slice return array, thus mid -1 will be last element
         root.right = buildTree(a.slice( mid + 1, end + 1)) // end not included in slice return array, thus +1
-
+ 
         return root
     }
 
@@ -48,7 +48,43 @@ const Tree = (array) => {
         currentNode.data > value ? currentNode.left = Node(value) : currentNode.right = Node(value)
     }
 
-    const deleteValue = (value) => {
+
+
+    const deleteValue = (value, node = root) => {
+
+        if (node == null) return node;
+        else if (value < node.data) node.left = deleteValue(value, node.left);
+        else if (value > node.data) node.right = deleteValue(value, node.right);
+        else {
+
+            if (node.left == null && node.right == null) {
+                node = null;
+                return node
+            }
+        }
+        return node
+    }
+
+    const find = (value, node = root) => {
+
+        if (value == node.data) return node;
+        else if (value < node.data) return find(value, node.left);
+        else if (value > node.data) return find(value, node.right);
+
+    }
+
+    const height = (node = root) => {
+
+        if (node == null) return 0
+
+        if (node.left == null && node.right == null) return 1
+        //else if (node.left !== null) return 1  + height(node.left)
+        //else if (node.right !== null) return 1  + height(node.right)
+        else {
+
+            return 1 + ((height(node.left) > height(node.right)) ? height(node.left) : height(node.right))
+
+        }
 
     }
 
@@ -73,14 +109,18 @@ const Tree = (array) => {
         root,
         prettyPrint,
         insert,
-        deleteValue
+        deleteValue,
+        find,
+        height
       }
 }
 
-let firstTree = Tree([  1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324 ])
+let firstTree = Tree([  1,2,3 ])
 
 console.log(firstTree.prettyPrint(firstTree.root))
-firstTree.insert(7.5)
-firstTree.insert(4.5)
-firstTree.insert(7000)
+console.log(firstTree.height())
+firstTree.insert(4)
+firstTree.insert(5)
 console.log(firstTree.prettyPrint(firstTree.root))
+console.log(firstTree.height())
+
