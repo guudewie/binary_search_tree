@@ -49,4 +49,23 @@ console.log("Tree is balanced:", testTree.isBalanced())
 
 console.log("\n\n***********  TREE TRAVERSAL  ***********\n")
 
-prettyPrint(testTree.levelOrder())
+console.log("-> Level Order:", testTree.levelOrder(), "\n")
+console.log("-> In Order:", testTree.inOrder(), "\n")
+console.log("-> Pre Order:", testTree.preOrder(), "\n")
+console.log("-> Post Order:", testTree.postOrder())
+
+console.log("\n\n***********  UNBALANCING  ***********\n")
+
+testTree.insert(111)
+testTree.insert(126)
+testTree.insert(178)
+
+prettyPrint(testTree.root)
+console.log("\n")
+console.log("Tree is balanced:", testTree.isBalanced())
+
+console.log("\n\n***********  REBALANCE  ***********\n")
+
+prettyPrint(testTree.reBalance())
+console.log("\n")
+console.log("Tree is balanced:", testTree.isBalanced(), "\n\n\n")

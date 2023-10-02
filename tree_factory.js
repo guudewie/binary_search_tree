@@ -108,7 +108,6 @@ const Tree = (array) => {
         if (node == null) return // return if node is empty
 
         queue.push(node) // push node in queue
-        console.log(queue[0])
 
         while (queue.length) {
             let currentNode = queue[0]
@@ -175,11 +174,9 @@ const Tree = (array) => {
 
     }
 
-    const reBalance = (node = root) => {
-
-        currentTreeArray = preOrder()
-        node = buildTree(_sortAndRemoveDuplicates(currentTreeArray))
-        return node 
+    const reBalance = () => {
+        root = buildTree(_sortAndRemoveDuplicates(preOrder()));
+        return root
     }
 
     const depth = (value, node = root) => {
@@ -197,7 +194,7 @@ const Tree = (array) => {
         }
     }
 
-    const root = buildTree(_sortAndRemoveDuplicates(array))
+    let root = buildTree(_sortAndRemoveDuplicates(array))
 
     return {
         root,
