@@ -1,4 +1,3 @@
-
 const Node = require("./Node_factory.js")
 
 const Tree = (array) => {
@@ -125,11 +124,76 @@ const Tree = (array) => {
         if (!callback) return levelOrderArray
     }
 
-    const preorder = (callback, node = root ) => {
+    const preOrder = (node = root) => {
+        
+        let preOrderArray = [];
+
+        if (node == null) return []
+        preOrderArray.push(node.data)
+        preOrderArray.push(...preOrder(node.left))
+        preOrderArray.push(...preOrder(node.right))
+
+        return preOrderArray
+    }
+    
+    const inOrder = (node = root) => {
+        
+        let inOrderArray = [];
+
+        if (node == null) return []
+        inOrderArray.push(...inOrder(node.left))
+        inOrderArray.push(node.data)
+        inOrderArray.push(...inOrder(node.right))
+
+        return inOrderArray
+    }
+
+    const postOrder = (node = root) => {
+        
+        let postOrderArray = [];
+
+        if (node == null) return []
+        postOrderArray.push(...postOrder(node.left))
+        postOrderArray.push(...postOrder(node.right))
+        postOrderArray.push(node.data)
+
+        return postOrderArray
+    }
+
+    const isBalanced = (node = root) => {
+
+        leftHeight = height(node.left)
+        rightHeight = height(node.right)
+
+        if (Math.abs(leftHeight - rightHeight) > 1) return false
+        else return true
 
     }
 
+    const reBalance = (node = root) => {
 
+        currentTreeArray = preOrder()
+        node = buildTree(_sortAndRemoveDuplicates(currentTreeArray))
+        return node 
+    }
+
+    const depth = (value, node = root) => {
+
+        if (!node) throw new Error("value not found")
+        if (node.data == value) return 0
+
+        if (value < node.data) {
+            const leftDepth = depth(value, node.left)
+            return leftDepth == -1 ? -1 : leftDepth + 1
+        }
+        if (value > node.data) {
+            const rightDepth = depth(value, node.right)
+            return rightDepth == -1 ? -1 : rightDepth + 1
+        }
+    }
+
+
+    // visualization of BST
     const prettyPrint = (node, prefix = "", isLeft = true) => {
         if (node === null) {
           return;
@@ -152,12 +216,21 @@ const Tree = (array) => {
         deleteValue,
         find,
         height,
-        levelOrder
+        levelOrder,
+        preOrder,
+        inOrder,
+        postOrder,
+        isBalanced,
+        reBalance,
+        depth
       }
 }
 
-let firstTree = Tree([  1,2,3,4,5,6,7,8,9,10 ])
+let firstTree = Tree([  1,2,3,4,5,6,7,8,9,10  ])
 
 console.log(firstTree.prettyPrint(firstTree.root))
+
+console.log(firstTree.depth(7))
+
 
 
