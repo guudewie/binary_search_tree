@@ -226,11 +226,4 @@ const Tree = (array) => {
       }
 }
 
-let firstTree = Tree([  1,2,3,4,5,6,7,8,9,10  ])
-
-console.log(firstTree.prettyPrint(firstTree.root))
-
-console.log(firstTree.depth(7))
-
-
-
+module.exports = Tree;
