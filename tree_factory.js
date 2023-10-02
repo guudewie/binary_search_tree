@@ -91,7 +91,6 @@ const Tree = (array) => {
         if (value == node.data) return node;
         else if (value < node.data) return find(value, node.left);
         else if (value > node.data) return find(value, node.right);
-
     }
 
     const height = (node = root) => {
@@ -102,6 +101,33 @@ const Tree = (array) => {
         else return 1 + ((height(node.left) > height(node.right)) ? height(node.left) : height(node.right)) // if not leafe node, then return highest height of subtree
     }
 
+    const levelOrder  = (callback, node = root) => {
+
+        let queue = [];
+        let levelOrderArray = [];
+
+        if (node == null) return // return if node is empty
+
+        queue.push(node) // push node in queue
+
+        while (queue.length) {
+            currentNode = queue[0]
+
+            // push the current node value to array or pass to callback if applicable
+            (!callback) ? levelOrderArray.push(currentNode.data) : callback(currentNode.data)
+
+            // enqueue currentnode children in order: first left then right, log in next iteration of while loop
+            if(currentNode.left !== null) queue.push(currentNode.left)
+            if(currentNode.right !== null) queue.push(currentNode.right)
+
+            queue.shift() // return logged note in queue
+        }
+        if (!callback) return levelOrderArray
+    }
+
+    const preorder = (callback, node = root ) => {
+
+    }
 
 
     const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -125,15 +151,13 @@ const Tree = (array) => {
         insert,
         deleteValue,
         find,
-        height
+        height,
+        levelOrder
       }
 }
 
 let firstTree = Tree([  1,2,3,4,5,6,7,8,9,10 ])
 
 console.log(firstTree.prettyPrint(firstTree.root))
-console.log(firstTree.height())
-firstTree.deleteValue(6)
-console.log(firstTree.prettyPrint(firstTree.root))
-console.log(firstTree.height())
+
 
