@@ -57,12 +57,33 @@ const Tree = (array) => {
         else if (value > node.data) node.right = deleteValue(value, node.right);
         else {
 
+            // Case 1: No childs
             if (node.left == null && node.right == null) {
                 node = null;
-                return node
             }
+            // Case 2: One child
+            else if (node.left == null) {
+                currentNode = node;
+                node = node.right;
+            } else if (node.right == null) {
+                currentNode = node;
+                node = node.left;
+            }
+            // Case 3: 2 children
+            else {
+                nextBiggestNode = _findNextBiggest(node.right);
+                node.data = nextBiggestNode.data
+                node.right = deleteValue(nextBiggestNode.data, node.right)
+            }
+
         }
         return node
+    }
+
+    const _findNextBiggest = (node) => {
+
+        if (node.left == null) return node
+        else return _findNextBiggest(node.left)
     }
 
     const find = (value, node = root) => {
@@ -77,15 +98,8 @@ const Tree = (array) => {
 
         if (node == null) return 0
 
-        if (node.left == null && node.right == null) return 1
-        //else if (node.left !== null) return 1  + height(node.left)
-        //else if (node.right !== null) return 1  + height(node.right)
-        else {
-
-            return 1 + ((height(node.left) > height(node.right)) ? height(node.left) : height(node.right))
-
-        }
-
+        if (node.left == null && node.right == null) return 1 // if leafe return height of one
+        else return 1 + ((height(node.left) > height(node.right)) ? height(node.left) : height(node.right)) // if not leafe node, then return highest height of subtree
     }
 
 
@@ -115,12 +129,11 @@ const Tree = (array) => {
       }
 }
 
-let firstTree = Tree([  1,2,3 ])
+let firstTree = Tree([  1,2,3,4,5,6,7,8,9,10 ])
 
 console.log(firstTree.prettyPrint(firstTree.root))
 console.log(firstTree.height())
-firstTree.insert(4)
-firstTree.insert(5)
+firstTree.deleteValue(6)
 console.log(firstTree.prettyPrint(firstTree.root))
 console.log(firstTree.height())
 
