@@ -108,12 +108,17 @@ const Tree = (array) => {
         if (node == null) return // return if node is empty
 
         queue.push(node) // push node in queue
+        console.log(queue[0])
 
         while (queue.length) {
             let currentNode = queue[0]
-
+    
             // push the current node value to array or pass to callback if applicable
-            (!callback) ? levelOrderArray.push(currentNode.data) : callback(currentNode.data)
+            if (typeof callback === 'function') {
+                callback(currentNode.data);
+            } else {
+                levelOrderArray.push(currentNode.data);
+            }
 
             // enqueue currentnode children in order: first left then right, log in next iteration of while loop
             if(currentNode.left !== null) queue.push(currentNode.left)
