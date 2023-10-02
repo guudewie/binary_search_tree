@@ -110,7 +110,7 @@ const Tree = (array) => {
         queue.push(node) // push node in queue
 
         while (queue.length) {
-            currentNode = queue[0]
+            let currentNode = queue[0]
 
             // push the current node value to array or pass to callback if applicable
             (!callback) ? levelOrderArray.push(currentNode.data) : callback(currentNode.data)
@@ -192,26 +192,10 @@ const Tree = (array) => {
         }
     }
 
+    const root = buildTree(_sortAndRemoveDuplicates(array))
 
-    // visualization of BST
-    const prettyPrint = (node, prefix = "", isLeft = true) => {
-        if (node === null) {
-          return;
-        }
-        if (node.right !== null) {
-          prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
-        }
-        console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
-        if (node.left !== null) {
-          prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
-        }
-      };
-
-      const root = buildTree(_sortAndRemoveDuplicates(array))
-
-      return {
+    return {
         root,
-        prettyPrint,
         insert,
         deleteValue,
         find,
@@ -223,7 +207,7 @@ const Tree = (array) => {
         isBalanced,
         reBalance,
         depth
-      }
+    }
 }
 
 module.exports = Tree;

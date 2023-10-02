@@ -4,7 +4,7 @@ const Tree = require("./tree_factory")
 // install node on your machine and run $node test_script.js
 // watch the Terminal
 
-// START SCRIPT
+// START HELPER FUNCTIONS
 
 function createRandomArray() {
      
@@ -37,6 +37,16 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     }
 };
 
+// START SCRIPT
+
+console.log("\n\n***********  INITIAL TREE  ***********\n")
 
 let testTree = Tree(createRandomArray())
-testTree.prettyPrint(testTree.root)
+prettyPrint(testTree.root)
+
+console.log("\n")
+console.log("Tree is balanced:", testTree.isBalanced())
+
+console.log("\n\n***********  TREE TRAVERSAL  ***********\n")
+
+prettyPrint(testTree.levelOrder())
